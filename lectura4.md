@@ -1,0 +1,20 @@
+# Critica lectura 13-09-2021
+## Content-Based Recommendation Systems 
+
+Este paper habla de sistemas recomendadores basados en contenido. Segun los intereses de un usuario y/o feedback que provea sobre los items.
+
+Se ve como tratar el problema completo con 3 componentes
+- La representacion de un item
+- Los intereses del usuario
+- El cruce entre los 2 puntos anteriores para seleccionar items adecuados.
+
+Cada componente tiene su complejidad, y se explora a lo largo del paper. Me parece interesante notar que por la fecha de la escritura del paper, este es más un paper que busca explicar el funcionamiento de sistemas recomendadores basados en contenido, como una guía instructiva, en donde se muestran los principales approach para estos 3 componentes, y se señalan los alcances de estos.
+Por lo mismo de la fecha, el manejo de los datos no estructurados era un problema mayor, no resuelto, por ejemplo, hablan de como se puede modificar los intereses de un usuario basado en el feedback que provea si este es un campo numerico, como poner un rating de 4 de 5 estrellas a un restorán con ciertas caracteristicas. Pero que si fuese un review escrito (data no estructurada) no habría forma de hacerlo. Pero hoy sabemos que es un problema fácil de resolver con NLP, tenemos poderosas herramientas en deeplearning, con modelos de ensamble pre-entrenados como lo es BERT o sus versiones destiladas que son más accessibles que son capaces de hacer analisis de sentimientos, para determinar si un review es positivo o negativo, y así podriamos modificar los intereses de un usuario a partir de un review escrito.
+
+Este mismo problema ocurre en la "representacion de un item", y se da el ejemplo de una noticia, en la que el contenido es data no estructurada, entonces está la dificultad de como representar este contenido de forma estructurada para así poder recomendarlo. Y se habla de la dificultad del lenguaje natural, y el approach que utilizan es uno de "reconocimiento de patrones" en donde las features en este caso se construyen de manera "hand-crafted" que era la forma de resolver en el pasado este tipo de problemas, en donde se hacian uso de complicadas formas para tratar de representar una noticia.
+
+Pero este mismo problema también es posible de resolver con las estrategias de NLP de deeplearning, modelos como BERT o W2V son capaces de mapear noticias similares a un espacio vectorial cercano, en este caso, cada noticia se representaria como un vector. Si necesitamos algo más personalizado, sabemos ahora que los modelos de NLP de ensamble son "few-shot learners" https://papers.nips.cc/paper/2020/file/1457c0d6bfcb4967418bfb8ac142f64a-Paper.pdf es decir, es más simple que realizar un fine-tuning, ya que estos modelos parecen ser agnosticos a la tarea, y que con pocos ejemplos aprenden a hacer una tarea especifica con alta precisión.
+
+Por otra parte la construcción de un modelo de un usuario, en donde especifica sus intereses, parece ser algo obsoleto, ya que solo analizando las cosas que un usuario consume puedo construir su perfil. No necesito que me provea de feedback directamente, tenemos que pensar que muchas veces ni siquiera nosotros mismos sabemos lo que nos gusta, o lo que nos podría interesar, entonces estariamos restringiendo de muchas categorias que pueden estar en el dominio de mi interes. Cuantas veces nos ha pasado que en youtube terminamos viendo una categoria de videos que jamás pensamos que nos podía gustar.
+
+Luego se exploran los metodos para recomendar, los cuales están lejos de ser los del estado del arte que se utilizan ahora, que son todos basados en Deeplearning, mientras aca se nos muestra el estado del arte de la fecha 2004, los cuales consistian en clasificadores lineales como SVM, metodos probabilisticos o el clasico KNN. Actualmente los sistemas recomendadores basados en contenido siguen siendo usados, pero mezclados de forma hibrida con otros sistemas recomendadores como filtros colaborativos, los cuales utilizan métodos y arquitecturas basadas en deeplearning para proveer el estado del arte actual.
